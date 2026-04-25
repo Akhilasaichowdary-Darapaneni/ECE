@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECE Farewell 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+font-family:'Poppins',sans-serif;
+background:#0a0a0a;
+color:white;
+scroll-behavior:smooth;
+overflow-x:hidden;
+}
+
+/* VIDEO BACKGROUND */
+.video-bg{
+position:fixed;top:0;left:0;
+width:100%;height:100%;
+object-fit:cover;z-index:-2;
+}
+.overlay{
+position:fixed;
+width:100%;height:100%;
+background:rgba(0,0,0,0.7);
+z-index:-1;
+}
+
+/* NAV */
+nav{
+position:fixed;top:0;width:100%;
+display:flex;justify-content:center;gap:25px;
+padding:15px;
+backdrop-filter:blur(12px);
+background:rgba(255,255,255,0.05);
+z-index:1000;
+}
+nav a{color:white;text-decoration:none;}
+nav a:hover{color:#00e0ff}
+
+/* SECTIONS */
+section{
+min-height:100vh;
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+padding:80px 20px;
+opacity:0;
+transform:translateY(40px);
+transition:0.8s;
+}
+section.show{opacity:1;transform:translateY(0);}
+
+/* GLASS */
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:20px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:15px;
+max-width:1100px;
+}
+.member{
+background:rgba(255,255,255,0.08);
+padding:15px;
+border-radius:15px;
+cursor:pointer;
+text-align:center;
+transition:0.3s;
+}
+.member:hover{transform:scale(1.05);}
+.member img{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  object-fit:cover;
+  object-position: top;   
+  display:block;
+  margin:0 auto 10px;
+  object-position: center;     
+  object-position: top;       
+  object-position: 50% 20%;    
+  object-position: 50% 10%;    
+}
+
+/* SEARCH */
+#search{
+padding:10px;
+margin:20px;
+border-radius:10px;
+border:none;
+width:250px;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.9);
+justify-content:center;
+align-items:center;
+}
+.modal-box{
+background:#111;
+padding:30px;
+border-radius:15px;
+text-align:center;
+max-width:400px;
+}
+
+/* REELS */
+.reel-container{
+height:100vh;
+overflow-y:scroll;
+scroll-snap-type:y mandatory;
+}
+.reel-container video{
+width:100%;
+object-fit:cover;
+scroll-snap-align:start;
+}
+#memories{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  padding:40px;
+}
+
+#memories video{
+  width:100%;
+  height:300px;
+  border-radius:20px;
+  box-shadow:0 0 15px rgba(0,224,255,0.5);
+  object-fit:cover;
+}
+
+/* MESSAGE */
+textarea{
+width:300px;
+padding:10px;
+border-radius:10px;
+}
+button{
+padding:10px 20px;
+background:#00e0ff;
+border:none;
+cursor:pointer;
+}
+
+/* TIMELINE */
+.timeline{
+border-left:2px solid #00e0ff;
+padding-left:20px;
+}
+
+/* TEXT */
+h1{font-size:3rem;}
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO -->
+<video autoplay muted loop class="video-bg">
+<source src="assets\videos\ECE Farewell.mp4">
+</video>
+<div class="overlay"></div>
+
+<!-- NAV -->
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#members">Members</a>
+<a href="#memories">Memories</a>
+<a href="#messages">Messages</a>
+<a href="#timeline">Timeline</a>
+<a href="#goodbye">Goodbye</a>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+<h1>ECE 2026 🎓</h1>
+<p id="quote">From strangers to family ❤️</p>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<div class="card">
+<b><h1 style="text-align: center;">About Batch</h1></b><br>
+<p>71 students. One journey. Infinite memories.</p><br>
+<p>We came, we saw, we graduated. Now, let’s go debugging the real world.</p><br>
+<p>Four years, countless memories, and friends who became family.</p><br>
+<p>B.Tech is temporary, but the crazy memories with you all are permanent.</p><br>
+<p>Parting is such sweet sorrow, but I'm so proud of us.</p><br>
+<p>The tassel was worth the hassle, but leaving you guys is the real struggle.</p><br>
+<p>End of an era, but the start of a friendship that lasts forever.</p><br>
+<p style="text-align: center;">Not goodbye, just see you later.</p><br>
+<p style="text-align: center;">Four years ➡️ forever.</p>
+</div>
+</section>
+
+<!-- MEMBERS -->
+<section id="members">
+<h1>Our Stars ⭐</h1>
+<input id="search" placeholder="Search member...">
+<div class="grid" id="grid"></div>
+</section>
+
+<!-- PROFILE -->
+<div class="modal" id="modal">
+<div class="modal-box" id="modalBox"></div>
+</div>
+
+<!-- REELS -->
+<div class="reel-container" id="memories">
+<video src="assets\videos\v1.mp4" autoplay muted loop></video>
+<video src="assets\videos\v2.mp4" autoplay muted loop></video>
+</div>
+
+<!-- MESSAGES -->
+<section id="messages">
+<h2>Message Wall 💌</h2>
+<textarea id="msg"></textarea><br>
+<button onclick="postMsg()">Post</button>
+<div id="msgList"></div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+<h2>Journey 🕰</h2>
+<div class="timeline">
+<p>📘 1st Year</p>
+<p>⚙️ 2nd Year</p>
+<p>💡 3rd Year</p>
+<p>🎓 Final Year</p>
+</div>
+</section>
+
+<!-- GOODBYE -->
+<section id="goodbye">
+<h1>Thank You ❤️</h1>
+<p>Once ECE, Always ECE</p>
+</section>
+
+<script>
+
+/* ================= MEMBERS DATA (STATIC) ================= */
+const members = [
+{ name: "Member 1", image: "assets/images/1.jpg", rollNo: "222T1A0401", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 2", image: "assets/images/2.jpg", rollNo: "222T1A0402", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 3", image: "assets/images/3.jpg", rollNo: "222T1A0403", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 4", image: "assets/images/4.jpg", rollNo: "222T1A0404", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 5", image: "assets/images/5.jpg", rollNo: "222T1A0405", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 6", image: "assets/images/6.jpg", rollNo: "222T1A0406", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 7", image: "assets/images/7.jpg", rollNo: "222T1A0407", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 8", image: "assets/images/8.jpg", rollNo: "222T1A0408", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 9", image: "assets/images/9.jpg", rollNo: "222T1A0409", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 10", image: "assets/images/10.jpg", rollNo: "222T1A0410", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 11", image: "assets/images/11.jpg", rollNo: "222T1A0411", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 12", image: "assets/images/12.jpg", rollNo: "222T1A0412", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 13", image: "assets/images/13.jpg", rollNo: "222T1A0413", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 14", image: "assets/images/14.jpg", rollNo: "222T1A0414", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 15", image: "assets/images/15.jpg", rollNo: "222T1A0415", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 16", image: "assets/images/16.jpg", rollNo: "222T1A0416", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 17", image: "assets/images/17.jpg", rollNo: "222T1A0417", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 18", image: "assets/images/18.jpg", rollNo: "222T1A0418", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 19", image: "assets/images/19.jpg", rollNo: "222T1A0419", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 20", image: "assets/images/20.jpg", rollNo: "222T1A0420", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 21", image: "assets/images/21.jpg", rollNo: "222T1A0421", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 22", image: "assets/images/22.jpg", rollNo: "222T1A0422", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 23", image: "assets/images/23.jpg", rollNo: "222T1A0423", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 24", image: "assets/images/24.jpg", rollNo: "222T1A0424", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 25", image: "assets/images/25.jpg", rollNo: "222T1A0425", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 26", image: "assets/images/26.jpg", rollNo: "222T1A0426", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 27", image: "assets/images/27.jpg", rollNo: "222T1A0427", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 28", image: "assets/images/28.jpg", rollNo: "222T1A0428", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 29", image: "assets/images/29.jpg", rollNo: "222T1A0429", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 30", image: "assets/images/30.jpg", rollNo: "222T1A0430", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 31", image: "assets/images/31.jpg", rollNo: "222T1A0431", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 32", image: "assets/images/32.jpg", rollNo: "222T1A0432", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 33", image: "assets/images/33.jpg", rollNo: "222T1A0433", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 34", image: "assets/images/34.jpg", rollNo: "222T1A0434", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 35", image: "assets/images/35.jpg", rollNo: "222T1A0435", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 36", image: "assets/images/36.jpg", rollNo: "222T1A0436", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 37", image: "assets/images/37.jpg", rollNo: "222T1A0437", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 38", image: "assets/images/38.jpg", rollNo: "222T1A0438", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 39", image: "assets/images/39.jpg", rollNo: "222T1A0439", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 40", image: "assets/images/40.jpg", rollNo: "222T1A0440", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 41", image: "assets/images/41.jpg", rollNo: "222T1A0441", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 42", image: "assets/images/42.jpg", rollNo: "222T1A0442", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 43", image: "assets/images/43.jpg", rollNo: "222T1A0443", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 44", image: "assets/images/44.jpg", rollNo: "222T1A0444", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 45", image: "assets/images/45.jpg", rollNo: "222T1A0445", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 46", image: "assets/images/46.jpg", rollNo: "222T1A0446", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 47", image: "assets/images/47.jpg", rollNo: "222T1A0447", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 48", image: "assets/images/48.jpg", rollNo: "222T1A0448", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 49", image: "assets/images/49.jpg", rollNo: "222T1A0449", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 50", image: "assets/images/50.jpg", rollNo: "222T1A0450", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 51", image: "assets/images/51.jpg", rollNo: "222T1A0451", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 52", image: "assets/images/52.jpg", rollNo: "222T1A0452", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 53", image: "assets/images/53.jpg", rollNo: "222T1A0453", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 54", image: "assets/images/54.jpg", rollNo: "222T1A0454", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 55", image: "assets/images/55.jpg", rollNo: "222T1A0455", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 56", image: "assets/images/56.jpg", rollNo: "222T1A0456", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 57", image: "assets/images/57.jpg", rollNo: "222T1A0457", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 58", image: "assets/images/58.jpg", rollNo: "222T1A0458", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 59", image: "assets/images/59.jpg", rollNo: "222T1A0459", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 60", image: "assets/images/60.jpg", rollNo: "222T1A0460", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 61", image: "assets/images/61.jpg", rollNo: "222T1A0461", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 62", image: "assets/images/62.jpg", rollNo: "222T1A0462", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 63", image: "assets/images/63.jpg", rollNo: "222T1A0463", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 64", image: "assets/images/64.jpg", rollNo: "222T1A0464", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 65", image: "assets/images/65.jpg", rollNo: "222T1A0465", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+
+{ name: "Member 66", image: "assets/images/66.jpg", rollNo: "222T1A0466", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 67", image: "assets/images/67.jpg", rollNo: "222T1A0467", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 68", image: "assets/images/68.jpg", rollNo: "222T1A0468", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 69", image: "assets/images/69.jpg", rollNo: "222T1A0469", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 70", image: "assets/images/70.jpg", rollNo: "222T1A0470", skills: ["ECE"], achievement: "Batch 2026", insta: "#" },
+{ name: "Member 71", image: "assets/images/71.jpg", rollNo: "222T1A0471", skills: ["ECE"], achievement: "Batch 2026", insta: "#" }
+
+];
+
+/* ================= RENDER MEMBERS ================= */
+
+function renderMembers(data){
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  data.forEach(m => {
+    let div = document.createElement("div");
+    div.className = "member";
+
+    div.innerHTML = `
+      <img src="${m.image}" onerror="this.src='default.jpg'">
+      <p>${m.name}</p>
+    `;
+
+    div.onclick = () => openProfile(m);
+
+    grid.appendChild(div);
+  });
+}
+
+renderMembers(members);
+
+/* ================= SEARCH ================= */
+
+document.getElementById("search").addEventListener("input", e => {
+  let val = e.target.value.toLowerCase();
+  let filtered = members.filter(m =>
+    m.name.toLowerCase().includes(val) ||
+    m.rollNo.toLowerCase().includes(val)
+  );
+  renderMembers(filtered);
+});
+
+/* ================= PROFILE MODAL ================= */
+
+function openProfile(m){
+  document.getElementById("modal").style.display = "flex";
+
+  document.getElementById("modalBox").innerHTML = `
+    <h2>${m.name}</h2>
+    <img src="${m.image}" width="150">
+    <p><b>Roll No:</b> ${m.rollNo}</p>
+    <p><b>Skills:</b> ${m.skills.join(", ")}</p>
+    <p><b>Achievement:</b> ${m.achievement}</p>
+    <a href="${m.insta}" target="_blank">Instagram</a>
+  `;
+}
+
+document.getElementById("modal").onclick = () => {
+  document.getElementById("modal").style.display = "none";
+};
+
+/* ================= MESSAGE WALL ================= */
+
+function postMsg(){
+  let msg = document.getElementById("msg").value;
+
+  if(!msg) return;
+
+  let msgs = JSON.parse(localStorage.getItem("msgs")) || [];
+  msgs.push(msg);
+
+  localStorage.setItem("msgs", JSON.stringify(msgs));
+
+  document.getElementById("msg").value = "";
+
+  showMsgs();
+}
+
+function showMsgs(){
+  let msgs = JSON.parse(localStorage.getItem("msgs")) || [];
+  let box = document.getElementById("msgList");
+
+  box.innerHTML = "";
+
+  msgs.forEach(m => {
+    let p = document.createElement("p");
+    p.innerText = m;
+    box.appendChild(p);
+  });
+}
+
+showMsgs();
+
+/* ================= SCROLL ANIMATION ================= */
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
+});
+
+document.querySelectorAll("section").forEach(sec => observer.observe(sec));
+
+/* ================= AI QUOTES ================= */
+
+const quotes = [
+"These were the best days ❤️",
+"Friends forever 🎓",
+"Memories never fade ✨"
+];
+
+setInterval(() => {
+  document.getElementById("quote").innerText =
+    quotes[Math.floor(Math.random()*quotes.length)];
+}, 3000);
+
+</script>
+
+</body>
+</html>
